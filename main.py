@@ -1,8 +1,6 @@
 from math import cos, sin, radians
-import pandas as pd
+# import pandas as pd
 import geopandas as gpd
-
-
 
 results = []
 
@@ -14,8 +12,8 @@ def calculate_coord(st_point: dict, angle: float, radius: float = 100) -> dict:
     y = st_point["y"] + cos(radians(angle)) * radius
     return {"x": x, "y": y}
 
-
 # data basic structure
+
 
 for no in range(361):
     point = calculate_coord(st_point=STARTING_POINT, angle=no)
@@ -30,8 +28,8 @@ for no in range(361):
     }
     results.append(item)
 
-coordinates: list = [item ['Coordinates'] for item in  results]
+coordinates: list = [item['Coordinates'] for item in results]
 gdf = gpd.GeoDataFrame(geometry=gpd.GeoSeries.from_wkt(coordinates))
-gdf.to_file(filename='lines.geojson', driver= "GeoJSON")
+gdf.to_file(filename='lines.geojson', driver="GeoJSON")
 
 print(gdf)
