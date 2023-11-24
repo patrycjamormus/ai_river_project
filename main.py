@@ -1,35 +1,20 @@
 from math import cos, sin, radians
 # import pandas as pd
 import geopandas as gpd
+from utils.vectors import generator_gwiazki
 
-results = []
+EPSG = 'epsg:2178'  # układ 1992
+RADIUS = 300
+# 5863838.87, 7527541.11
+STARTING_POINT = {"x": 7527541.11, "y": 5863838.87}
+# generator_gwiazki(STARTING_POINT=STARTING_POINT, epsg=EPSG , star_radius=RADIUS)
 
-STARTING_POINT = {"x": 0, "y": 0}
+# intersekcja żeby zebrać dane przecięcia jednej i drugiej warstwy
+linia_brzegu_2013 = gpd.read_file('sh_in_2013.geojson')
+gwiazdka = gpd.read_file('lines.geojson')
 
+# print(gwiazdka)
+# print (linia_brzegu_2013.head())
 
-def calculate_coord(st_point: dict, angle: float, radius: float = 100) -> dict:
-    x = st_point["x"] + sin(radians(angle)) * radius
-    y = st_point["y"] + cos(radians(angle)) * radius
-    return {"x": x, "y": y}
-
-# data basic structure
-
-
-for no in range(361):
-    point = calculate_coord(st_point=STARTING_POINT, angle=no)
-    item = {
-        "id": no,
-        "azimuth": no,
-        "Coordinates": f'LINESTRING('
-                       f'{STARTING_POINT["x"]} '
-                       f'{STARTING_POINT["y"]}, '
-                       f'{point["x"]} {point["y"]})',
-        "year": 2020
-    }
-    results.append(item)
-
-coordinates: list = [item['Coordinates'] for item in results]
-gdf = gpd.GeoDataFrame(geometry=gpd.GeoSeries.from_wkt(coordinates))
-gdf.to_file(filename='lines.geojson', driver="GeoJSON")
-
-print(gdf)
+punkty_przeciecia = gwiazdka.unary_union.intersection(linia_brzegu_2013.to_crs(crs=EPSG).unary_union)
+punkty_przeciecia.to_file(filename='punkty_przeciecia_2013.geojson', driver="GeoJSON")
