@@ -15,14 +15,14 @@ STARTING_POINT = {"x": 7527541.11, "y": 5863838.87}
 # DATA PREPARING
 gwiazdka = gpd.read_file('lines.geojson')
 
-linie_brzegu = [
-    gpd.read_file('data/sh_in_2013.geojson'),
-    # TODO dodać nowe lata
+linie_brzegu: list[dict, dict] = [
+    {'rok': 2013, 'linia_brzegu': gpd.read_file('data/sh_in_2013.geojson')},
+    # TODO dodać nowe dane wg. powyższego wzoru
 ]
 
-for idx, linia_brzegu in enumerate(linie_brzegu):
-    gwiazdka[f'distance_{idx}']: list = intersekcja(
-        linia_brzegu=linia_brzegu,
+for item in linie_brzegu:
+    gwiazdka[f'distance_{item.rok}']: list = intersekcja(
+        linia_brzegu=item.linia_brzegu,
         gwiazdka=gwiazdka,
         STARTING_POINT=STARTING_POINT,
         EPSG=EPSG
