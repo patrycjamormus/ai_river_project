@@ -37,10 +37,11 @@ def intersekcja(linia_brzegu: gpd.GeoDataFrame, gwiazdka: gpd.GeoDataFrame, star
     """
     linia_brzegu.to_crs(crs=epsg, inplace=True)
     columns_data: list = []
-    line_geometry = linia_brzegu.iloc[0].geometry
+    line_geometry = linia_brzegu.iloc[0].geometry #wyciaganie wspolrzednych
 
     for _, gw_row in gwiazdka.itertuples():
-        point_of_intersect = gw_row.intersection(line_geometry)
-        dist = point_of_intersect.distance(starting_point)
-        columns_data.append(dist)
+        print()
+        # point_of_intersect = gw_row.intersection(line_geometry)
+        # dist = point_of_intersect.distance(starting_point)
+        # columns_data.append(dist)
     return columns_data
