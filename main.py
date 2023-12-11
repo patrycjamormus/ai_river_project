@@ -2,15 +2,15 @@
 import geopandas as gpd
 from shapely import Point
 # custom
-from utils.vectors import intersekcja, generator_gwiazki
+from utils.vectors import intersekcja, generator_gwiazdki
 
 # CONST
-EPSG: str = 'epsg:2178'  # epsg code
+EPSG: str = 'EPSG:2178'  # epsg code
 RADIUS: int = 300  # meters
 STARTING_POINT: Point = Point(7527541.11, 5863838.87)  # case study area
 
 # STAR DRAWING
-generator_gwiazki(start_point=STARTING_POINT, epsg=EPSG, star_radius=RADIUS)
+generator_gwiazdki(start_point=STARTING_POINT, epsg=EPSG, star_radius=RADIUS)
 
 # DATA PREPARING
 gwiazdka: gpd.GeoDataFrame = gpd.read_file('lines.geojson')
@@ -32,6 +32,7 @@ linie_brzegu: list[dict, dict] = [
 
 for item in linie_brzegu:
     # dodaje nowa kolumne do tabeli gwiazdka
+    # print(item)
     gwiazdka[f'distance_{item["rok"]}_{item["shoreline"]}']: list = intersekcja(
         linia_brzegu=item["linia_brzegu"],
         gwiazdka=gwiazdka,
