@@ -16,18 +16,18 @@ generator_gwiazdki(start_point=STARTING_POINT, epsg=EPSG, star_radius=RADIUS)
 gwiazdka: gpd.GeoDataFrame = gpd.read_file('lines.geojson')
 
 linie_brzegu: list[dict, dict] = [
-    {'rok': 2011, 'shoreline': 'inside', 'linia_brzegu': gpd.read_file('data/in_2011.geojson')},
-    {'rok': 2011, 'shoreline': 'outside', 'linia_brzegu': gpd.read_file('data/out_2011.geojson')},
-    {'rok': 2013, 'shoreline': 'inside', 'linia_brzegu': gpd.read_file('data/in_2013.geojson')},
-    {'rok': 2013, 'shoreline': 'outside', 'linia_brzegu': gpd.read_file('data/out_2013.geojson')},
-    {'rok': 2016, 'shoreline': 'inside', 'linia_brzegu': gpd.read_file('data/in_2016.geojson')},
-    {'rok': 2016, 'shoreline': 'outside', 'linia_brzegu': gpd.read_file('data/out_2016.geojson')},
-    {'rok': 2019, 'shoreline': 'inside', 'linia_brzegu': gpd.read_file('data/in_2019.geojson')},
-    {'rok': 2019, 'shoreline': 'outside', 'linia_brzegu': gpd.read_file('data/out_2019.geojson')},
-    {'rok': 2020, 'shoreline': 'inside', 'linia_brzegu': gpd.read_file('data/in_2020.geojson')},
-    {'rok': 2020, 'shoreline': 'outside', 'linia_brzegu': gpd.read_file('data/out_2020.geojson')},
-    {'rok': 2022, 'shoreline': 'inside', 'linia_brzegu': gpd.read_file('data/in_2022.geojson')},
-    {'rok': 2022, 'shoreline': 'outside', 'linia_brzegu': gpd.read_file('data/out_2022.geojson')},
+    {'rok': 2011, 'shoreline': 'in', 'linia_brzegu': gpd.read_file('data/in_2011.geojson')},
+    {'rok': 2011, 'shoreline': 'out', 'linia_brzegu': gpd.read_file('data/out_2011.geojson')},
+    {'rok': 2013, 'shoreline': 'in', 'linia_brzegu': gpd.read_file('data/in_2013.geojson')},
+    {'rok': 2013, 'shoreline': 'out', 'linia_brzegu': gpd.read_file('data/out_2013.geojson')},
+    {'rok': 2016, 'shoreline': 'in', 'linia_brzegu': gpd.read_file('data/in_2016.geojson')},
+    {'rok': 2016, 'shoreline': 'out', 'linia_brzegu': gpd.read_file('data/out_2016.geojson')},
+    {'rok': 2019, 'shoreline': 'in', 'linia_brzegu': gpd.read_file('data/in_2019.geojson')},
+    {'rok': 2019, 'shoreline': 'out', 'linia_brzegu': gpd.read_file('data/out_2019.geojson')},
+    {'rok': 2020, 'shoreline': 'in', 'linia_brzegu': gpd.read_file('data/in_2020.geojson')},
+    {'rok': 2020, 'shoreline': 'out', 'linia_brzegu': gpd.read_file('data/out_2020.geojson')},
+    {'rok': 2022, 'shoreline': 'in', 'linia_brzegu': gpd.read_file('data/in_2022.geojson')},
+    {'rok': 2022, 'shoreline': 'out', 'linia_brzegu': gpd.read_file('data/out_2022.geojson')},
 ]
 
 for item in linie_brzegu:
