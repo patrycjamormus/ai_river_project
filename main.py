@@ -45,9 +45,11 @@ for item in linie_brzegu:
         starting_point=STARTING_POINT,
         epsg=EPSG
     )
+    df_n ['angle'] =df_n.index
     lista_df_na_kolejne_lata.append(df_n)
 
 
 df_full = pd.concat(lista_df_na_kolejne_lata)
 print(df_full)
 df_full.to_file('nowa_gwiazdka.geojson', driver='GeoJSON')
+
