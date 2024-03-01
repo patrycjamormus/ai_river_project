@@ -19,7 +19,7 @@ def generator_gwiazdki(start_point: Point, epsg: str, star_radius: int = 100) ->
         LineString([
             start_point,
             calculate_coord(starting_point=start_point, angle=no, radius=star_radius)
-        ]) for no in np.arange(start=0, stop=360, step=1)]
+        ]) for no in np.arange(start=0, stop=360, step=0.1)]
 
     gdf = gpd.GeoDataFrame(geometry=gpd.GeoSeries(coordinates))
     gdf = gdf.set_crs(epsg, allow_override=True)
@@ -39,9 +39,13 @@ def intersekcja(linia_brzegu: gpd.GeoDataFrame, gwiazdka: gpd.GeoDataFrame, star
     columns_data: list = []
     line_geometry = linia_brzegu.iloc[0].geometry #wyciaganie wspolrzednych
 
-
+    # points_of_intersect:list = []
     for gw_row in gwiazdka.itertuples():
         point_of_intersect = gw_row.geometry.intersection(line_geometry)
         dist = point_of_intersect.distance(starting_point)
         columns_data.append(dist)
+
+        # point_of_intersect.append(points_of_intersect)
+
+
     return columns_data

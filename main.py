@@ -35,16 +35,22 @@ lista_df_na_kolejne_lata: list = []
 
 for item in linie_brzegu:
     # dodaje nowa kolumne do tabeli gwiazdka
-    gwiazdka[f'distance_{item["rok"]}_{item["shoreline"]}']: list = intersekcja(
+    # print(item)
+    df_n= gwiazdka.copy()
+    df_n ['rok'] = item['rok']
+    df_n ['in'] = True if item ['shoreline'] == 'in' else False
+    df_n[f'distance']: list = intersekcja(
         linia_brzegu=item["linia_brzegu"],
         gwiazdka=gwiazdka,
         starting_point=STARTING_POINT,
         epsg=EPSG
     )
+    df_n ['angle'] =df_n.index
+    lista_df_na_kolejne_lata.append(df_n)
 
-gwiazdka ['angle'] =gwiazdka.index
-gwiazdka.dropna(axis=0, how="any", inplace=True)
-print(gwiazdka)
-gwiazdka.to_file('nowa_gwiazdka_wiecej_kolumn_in.geojson', driver='GeoJSON')
+df_full = pd.concat(lista_df_na_kolejne_lata)
+df_full.dropna(axis=0, how="any", inplace=True)
+print(df_full)
+df_full.to_file('nowa_gwiazdka_jedna_kolumna_in.geojson', driver='GeoJSON')
 
 
